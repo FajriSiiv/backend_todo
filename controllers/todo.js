@@ -27,12 +27,13 @@ export const getTodo = async (req, res) => {
 // Add Todos
 export const addTodo = async (req, res) => {
   try {
-    const { title, description, completed } = req.body;
+    const { title, description, completed, like } = req.body;
 
     const newTodo = new Todo({
       title,
       description,
       completed: completed || false,
+      like: false,
     });
 
     const savedTodo = await newTodo.save();

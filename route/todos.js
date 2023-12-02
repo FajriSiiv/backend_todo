@@ -6,11 +6,11 @@ import {
   getTodos,
   updateTodo,
 } from "../controllers/todo.js";
-import { maxCapacity } from "../middlewares/todo.js";
+import { maxCapacity, verifyToken } from "../middlewares/middleware.js";
 
 const router = express.Router();
 
-router.get("/api/todos", getTodos);
+router.get("/api/todos", verifyToken, getTodos);
 router.get("/api/todos/:id", getTodo);
 router.post("/api/todos", maxCapacity, addTodo);
 router.patch("/api/todos/:id", updateTodo);

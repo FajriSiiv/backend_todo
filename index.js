@@ -3,6 +3,7 @@ import cors from "cors";
 import cookieParser from "cookie-parser";
 import mongoose from "mongoose";
 import routerTodos from "./route/todos.js";
+import routerUser from "./route/users.js";
 import dotenv from "dotenv";
 
 dotenv.config();
@@ -16,6 +17,7 @@ const db = mongoose.connection;
 
 app.use(express.json());
 app.use(routerTodos);
+app.use(routerUser);
 
 db.on("error", (error) => console.log(error));
 db.once("open", () => {
