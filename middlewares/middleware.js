@@ -39,14 +39,12 @@ export const validationPassword = async (req, res, next) => {
 
 // Verify Token Login
 export const verifyToken = (req, res, next) => {
-  // Dapatkan token dari header
-  const authHeader = req.header("Authorization");
-  const token = authHeader && authHeader.split(" ")[1];
+  // Dapatkan token dari cookies
+  const { token } = req.cookies;
 
   if (token == null) return res.sendStatus(401);
   jwt.verify(token, "jwtKey", (err, decoded) => {
     if (err) return res.status(403).send({ msg: err.message });
-    req.email = decoded.email;
     next();
   });
 };

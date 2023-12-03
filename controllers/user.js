@@ -113,11 +113,11 @@ export const Login = async (req, res) => {
       expiresIn: "1h",
     });
 
+    // Kirim ke cookies
+    res.cookie("token", token, { httpOnly: true });
+
     // Kirim respons dengan token
-    res
-      .status(200)
-      .header("Authorization", `Bearer ${token}`)
-      .json({ token, userId: user._id });
+    res.status(200).json({ token, userId: user._id });
   } catch (error) {
     res
       .status(500)
@@ -125,13 +125,9 @@ export const Login = async (req, res) => {
   }
 };
 
-const revokedTokens = new Set();
 // Logout
 export const logout = (req, res) => {
-  const { token } = req.body;
-
-  // Tambahkan token ke daftar logout
-  revokedTokens.add(token);
+  res.clearCookie("token");
 
   res.status(200).json({ msg: "Logout successful" });
 };

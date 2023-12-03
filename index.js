@@ -15,6 +15,7 @@ mongoose.connect(process.env.MONGOOSE_USER);
 
 const db = mongoose.connection;
 
+app.use(cookieParser());
 app.use(express.json());
 app.use(routerTodos);
 app.use(routerUser);

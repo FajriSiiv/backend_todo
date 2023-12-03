@@ -2,16 +2,17 @@
 
 ## Stack Backend
 
-- [Language](Node.JS)
-- [Database](MongoDB)
+- Node.JS
+- MongoDB
 
 ### Done
 
 - CRUD Todo and User
-- Verify Token with JWT Token
+- Verify Token with JWT Token (Cookies JWT)
 - Route Todo and User
+- Logout Features
+- Middleware only user
 
 ### unDone
 
-- Logout Features
 - ....

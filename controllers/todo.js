@@ -1,9 +1,15 @@
+import jwt from "jsonwebtoken";
 import Todo from "../model/todo.js";
+import User from "../model/user.js";
 
 // Get Todos
 export const getTodos = async (req, res) => {
+  const { token } = req.cookies;
+
+  const decoded = jwt.verify(token, "jwtKey");
+
   try {
-    const Todos = await Todo.find();
+    const Todos = await Todo.find({ createBy: decoded.userId });
 
     res.status(200).send(Todos);
   } catch (error) {
@@ -26,6 +32,9 @@ export const getTodo = async (req, res) => {
 
 // Add Todos
 export const addTodo = async (req, res) => {
+  const { token } = req.cookies;
+  const decoded = jwt.verify(token, "jwtKey");
+
   try {
     const { title, description, completed, like } = req.body;
 
@@ -34,6 +43,7 @@ export const addTodo = async (req, res) => {
       description,
       completed: completed || false,
       like: false,
+      createBy: decoded.userId,
     });
 
     const savedTodo = await newTodo.save();
